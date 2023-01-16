@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "YgHBkkM1+xVRQg49/t2q+YFtEl9d+Wg1+OQyDaXvJgs=",
+  "Source": "TestPodologyApi",
+  "BasePath": "_content/TestPodologyApi",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

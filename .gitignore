@@ -1,0 +1,6 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/VSWorkspaceState.json
+/Yara-Rostock-APIs/logs/eLisa-Als-Api/archives/20220912.eLisa-Als-Api-all.arch.zip
