@@ -9,6 +9,9 @@
 *.userosscache
 *.sln.docstates
 
+.vs/
+TestPodologyApi/.vs
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
