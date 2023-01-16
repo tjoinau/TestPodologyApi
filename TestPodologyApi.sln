@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32922.545
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestPodologyApi", "TestPodologyApi\TestPodologyApi.csproj", "{CEE8BFBC-2CC3-4DE4-ACAE-4DD6C99E8DB4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestPodologyApi", "TestPodologyApi\TestPodologyApi.csproj", "{CEE8BFBC-2CC3-4DE4-ACAE-4DD6C99E8DB4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestPodologyModel", "TestPodologyModel\TestPodologyModel.csproj", "{7A16BDBF-43E9-430F-8E27-EAD6CBACF2EE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestPodologyModel", "TestPodologyModel\TestPodologyModel.csproj", "{7A16BDBF-43E9-430F-8E27-EAD6CBACF2EE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestPodologyRepository", "TestPodologyRepository\TestPodologyRepository.csproj", "{2A673899-EFC8-42CE-9B0F-4113B9930168}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{7A16BDBF-43E9-430F-8E27-EAD6CBACF2EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7A16BDBF-43E9-430F-8E27-EAD6CBACF2EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7A16BDBF-43E9-430F-8E27-EAD6CBACF2EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A673899-EFC8-42CE-9B0F-4113B9930168}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A673899-EFC8-42CE-9B0F-4113B9930168}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A673899-EFC8-42CE-9B0F-4113B9930168}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A673899-EFC8-42CE-9B0F-4113B9930168}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
