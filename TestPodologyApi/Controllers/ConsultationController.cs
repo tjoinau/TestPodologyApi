@@ -41,11 +41,11 @@ namespace TestPodologyApi.Controllers
         {
         }
 
-        [HttpGet]
-        public List<AvailableDatesDto> GetFirstsAvailableDates()
-        {
+        //[HttpGet]
+        //public List<AvailableDatesDto> GetFirstsAvailableDates()
+        //{
 
-        }
+        //}
 
     }
 }

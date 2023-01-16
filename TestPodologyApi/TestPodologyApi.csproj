@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TestPodologyModel\TestPodologyModel.csproj" />
+    <ProjectReference Include="..\TestPodologyRepository\TestPodologyRepository.csproj" />
   </ItemGroup>
 
 </Project>
