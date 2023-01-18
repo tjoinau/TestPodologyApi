@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using TestPodologyApi.Interfaces;
 using TestPodologyModel.DTOs;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -9,6 +10,14 @@ namespace TestPodologyApi.Controllers
     [ApiController]
     public class ConsultationController : ControllerBase
     {
+        private readonly IConsultationService _consultationService;
+
+        public ConsultationController(IConsultationService consultationService)
+        {
+            _consultationService = consultationService;
+        }
+
+
         // GET: api/<ConsultationController>
         [HttpGet]
         public IEnumerable<string> Get()
@@ -41,11 +50,13 @@ namespace TestPodologyApi.Controllers
         {
         }
 
-        //[HttpGet]
-        //public List<AvailableDatesDto> GetFirstsAvailableDates()
-        //{
+        [HttpGet("GetFirstsAvailableDates")]
+        public async Task<List<AvailableDatesDto>> GetFirstsAvailableDates()
+        {
+            var xxx = await _consultationService.GetFirstsAvailableDates();
 
-        //}
+            return xxx;
+        }
 
     }
 }
