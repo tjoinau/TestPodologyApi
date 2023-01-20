@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using TestPodologyApi.Interfaces;
 using TestPodologyModel.DTOs;
 using TestPodologyModel.Search;
@@ -12,10 +13,12 @@ namespace TestPodologyApi.Controllers
     public class LocationController : ControllerBase
     {
         private readonly ILocationService _locationService;
+        private readonly IMapper _mapper;
 
-        public LocationController(ILocationService locationService)
+        public LocationController(ILocationService locationService, IMapper mapper)
         {
             _locationService = locationService;
+            _mapper = mapper;
         }
 
         // GET: api/<LocationController>
@@ -24,18 +27,7 @@ namespace TestPodologyApi.Controllers
         {
             var locations = await _locationService.Get(locationSearch);
 
-            var locationsDto = new List<LocationDto>();
-
-            foreach (var location in locations)
-            {
-                locationsDto.Add(new LocationDto
-                {
-                    Id = location.Id,
-                    Name = location.Name,
-                    Address = location.Address,
-                    HealthCareProviderId = location.HealthCareProviderId
-                });
-            }
+            var locationsDto = _mapper.Map<List<LocationDto>>(locations);
 
             return locationsDto;
         }
