@@ -30,6 +30,7 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddScoped<IConsultationService, ConsultationService>();
+builder.Services.AddScoped<ILocationService, LocationService>();
 
 var app = builder.Build();
 

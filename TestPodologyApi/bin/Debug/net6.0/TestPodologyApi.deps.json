@@ -8,6 +8,8 @@
     ".NETCoreApp,Version=v6.0": {
       "TestPodologyApi/1.0.0": {
         "dependencies": {
+          "AutoMapper": "12.0.1",
+          "LinqKit.Core": "1.2.3",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "6.0.9",
           "Microsoft.AspNetCore.Authentication.OpenIdConnect": "6.0.9",
           "Microsoft.Identity.Web": "1.16.0",
@@ -17,6 +19,17 @@
         },
         "runtime": {
           "TestPodologyApi.dll": {}
+        }
+      },
+      "AutoMapper/12.0.1": {
+        "dependencies": {
+          "Microsoft.CSharp": "4.7.0"
+        },
+        "runtime": {
+          "lib/netstandard2.1/AutoMapper.dll": {
+            "assemblyVersion": "12.0.0.0",
+            "fileVersion": "12.0.1.0"
+          }
         }
       },
       "Azure.Core/1.24.0": {
@@ -81,6 +94,14 @@
           }
         }
       },
+      "LinqKit.Core/1.2.3": {
+        "runtime": {
+          "lib/netstandard2.1/LinqKit.Core.dll": {
+            "assemblyVersion": "1.2.3.0",
+            "fileVersion": "1.2.3.0"
+          }
+        }
+      },
       "Microsoft.AspNetCore.Authentication.JwtBearer/6.0.9": {
         "dependencies": {
           "Microsoft.IdentityModel.Protocols.OpenIdConnect": "6.21.0"
@@ -111,7 +132,7 @@
           }
         }
       },
-      "Microsoft.CSharp/4.5.0": {},
+      "Microsoft.CSharp/4.7.0": {},
       "Microsoft.Data.SqlClient/5.0.1": {
         "dependencies": {
           "Azure.Identity": "1.6.0",
@@ -426,7 +447,7 @@
       },
       "Microsoft.IdentityModel.Tokens/6.21.0": {
         "dependencies": {
-          "Microsoft.CSharp": "4.5.0",
+          "Microsoft.CSharp": "4.7.0",
           "Microsoft.IdentityModel.Logging": "6.21.0",
           "System.Security.Cryptography.Cng": "5.0.0"
         },
@@ -754,6 +775,13 @@
       "serviceable": false,
       "sha512": ""
     },
+    "AutoMapper/12.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-hvV62vl6Hp/WfQ24yzo3Co9+OPl8wH8hApwVtgWpiAynVJkUcs7xvehnSftawL8Pe8FrPffBRM3hwzLQqWDNjA==",
+      "path": "automapper/12.0.1",
+      "hashPath": "automapper.12.0.1.nupkg.sha512"
+    },
     "Azure.Core/1.24.0": {
       "type": "package",
       "serviceable": true,
@@ -782,6 +810,13 @@
       "path": "azure.security.keyvault.secrets/4.1.0",
       "hashPath": "azure.security.keyvault.secrets.4.1.0.nupkg.sha512"
     },
+    "LinqKit.Core/1.2.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Hgew61mrN63v7PK15NpQLTo/0gf0F2KoffSfnspqzXu0VHZH8U0RWaaoE1pfGJUUNhSqyYiodG3fPyYHkFXMhg==",
+      "path": "linqkit.core/1.2.3",
+      "hashPath": "linqkit.core.1.2.3.nupkg.sha512"
+    },
     "Microsoft.AspNetCore.Authentication.JwtBearer/6.0.9": {
       "type": "package",
       "serviceable": true,
@@ -803,12 +838,12 @@
       "path": "microsoft.bcl.asyncinterfaces/1.1.1",
       "hashPath": "microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512"
     },
-    "Microsoft.CSharp/4.5.0": {
+    "Microsoft.CSharp/4.7.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-kaj6Wb4qoMuH3HySFJhxwQfe8R/sJsNJnANrvv8WdFPMoNbKY5htfNscv+LHCu5ipz+49m2e+WQXpLXr9XYemQ==",
-      "path": "microsoft.csharp/4.5.0",
-      "hashPath": "microsoft.csharp.4.5.0.nupkg.sha512"
+      "sha512": "sha512-pTj+D3uJWyN3My70i2Hqo+OXixq3Os2D1nJ2x92FFo6sk8fYS1m1WLNTs0Dc1uPaViH0YvEEwvzddQ7y4rhXmA==",
+      "path": "microsoft.csharp/4.7.0",
+      "hashPath": "microsoft.csharp.4.7.0.nupkg.sha512"
     },
     "Microsoft.Data.SqlClient/5.0.1": {
       "type": "package",

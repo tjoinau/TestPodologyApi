@@ -1,57 +1,44 @@
-﻿using TestPodologyModel.DTOs;
+﻿using LinqKit;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Linq.Expressions;
+using TestPodologyApi.Interfaces;
+using TestPodologyModel.DTOs;
+using TestPodologyModel.Search;
 using TestPodologyRepository.Data;
+using TestPodologyRepository.Entities;
 
 namespace TestPodologyApi.Services
 {
-    public class LocationService
+    public class LocationService : ILocationService
     {
-        //public async Task Get()
-        //{
-        //    try
-        //    {
-        //        var availableDates = new List<AvailableDatesDto>();
+        public async Task<List<Location>> Get(LocationSearch locationSearch)
+        {
+            try
+            {
+                var pr = PredicateBuilder.New<Location>(true);
 
-        //        using (var db = new TestPodologyDBContext())
-        //        {
-        //            var locationsDb = await db.Locations
-        //                .Where(x => x.)
-        //                .OrderBy(x => x.StartConsultation)
-        //                .ToListAsync()
-        //                .ConfigureAwait(false);
+                if (locationSearch.DoctorId.HasValue)
+                {
+                    pr = pr.And(x => x.HealthCareProviderId == locationSearch.DoctorId.Value);
+                }
 
-        //            while (availableDates.SelectMany(x => x.Slots).ToList().Count <= 30)
-        //            {
-        //                var availableDatesDto = new AvailableDatesDto()
-        //                {
-        //                    Date = initialDate.Date.ToString("dd/MM/yyyy"),
-        //                    Slots = new List<DateTime>()
-        //                };
-        //                var availableSlots = new List<DateTime>();
+                using (var db = new TestPodologyDBContext())
+                {
+                    var locationsDb = await db.Locations
+                        .Where(pr)
+                        .OrderBy(x => x.Name)
+                        .ToListAsync()
+                        .ConfigureAwait(false);
 
-        //                var consultations = consultationsDb.Where(x => x.StartConsultation.Date == initialDate.Date).ToList();
+                    return locationsDb;
+                }
+            }
 
-        //                for (var date = initialDate.Add(StartDayParam.ToTimeSpan()); date < initialDate.Add(EndDayParam.ToTimeSpan()); date = date.Add(slotDuration))
-        //                {
-        //                    if (!consultations.Any(x => x.StartConsultation >= date && x.EndConsultation <= date.Add(slotDuration)))
-        //                    {
-        //                        availableDatesDto.Slots.Add(date);
-        //                    }
-        //                }
-
-        //                availableDates.Add(availableDatesDto);
-
-        //                initialDate = initialDate.AddDays(1);
-
-        //            }
-
-        //        }
-        //        return availableDates;
-        //    }
-
-        //    catch (Exception ex)
-        //    {
-        //        throw ex;
-        //    }
-        //}
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

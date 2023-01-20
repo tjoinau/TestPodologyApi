@@ -78,7 +78,13 @@ public partial class TestPodologyDBContext : DbContext
             entity.ToTable("Location");
 
             entity.Property(e => e.Address).HasMaxLength(500);
+            entity.Property(e => e.HealthCareProviderId).HasColumnName("HealthCareProvider_Id");
             entity.Property(e => e.Name).HasMaxLength(250);
+
+            entity.HasOne(d => d.HealthCareProvider).WithMany(p => p.Locations)
+                .HasForeignKey(d => d.HealthCareProviderId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Location_HealthCareProvider");
         });
 
         modelBuilder.Entity<Patient>(entity =>

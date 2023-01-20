@@ -12,4 +12,6 @@ public partial class HealthCareProvider
     public string LastName { get; set; } = null!;
 
     public virtual ICollection<Consultation> Consultations { get; } = new List<Consultation>();
+
+    public virtual ICollection<Location> Locations { get; } = new List<Location>();
 }

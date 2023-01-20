@@ -1,4 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using TestPodologyApi.Interfaces;
+using TestPodologyModel.DTOs;
+using TestPodologyModel.Search;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -8,11 +11,33 @@ namespace TestPodologyApi.Controllers
     [ApiController]
     public class LocationController : ControllerBase
     {
+        private readonly ILocationService _locationService;
+
+        public LocationController(ILocationService locationService)
+        {
+            _locationService = locationService;
+        }
+
         // GET: api/<LocationController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<List<LocationDto>> Get([FromQuery] LocationSearch locationSearch)
         {
-            return new string[] { "value1", "value2" };
+            var locations = await _locationService.Get(locationSearch);
+
+            var locationsDto = new List<LocationDto>();
+
+            foreach (var location in locations)
+            {
+                locationsDto.Add(new LocationDto
+                {
+                    Id = location.Id,
+                    Name = location.Name,
+                    Address = location.Address,
+                    HealthCareProviderId = location.HealthCareProviderId
+                });
+            }
+
+            return locationsDto;
         }
 
         // GET api/<LocationController>/5
