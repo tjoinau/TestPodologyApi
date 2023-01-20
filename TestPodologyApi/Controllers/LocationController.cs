@@ -4,8 +4,6 @@ using TestPodologyApi.Interfaces;
 using TestPodologyModel.DTOs;
 using TestPodologyModel.Search;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace TestPodologyApi.Controllers
 {
     [Route("api/[controller]")]

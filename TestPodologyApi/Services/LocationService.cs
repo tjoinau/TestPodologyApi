@@ -1,9 +1,6 @@
 ﻿using LinqKit;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using System.Linq.Expressions;
 using TestPodologyApi.Interfaces;
-using TestPodologyModel.DTOs;
 using TestPodologyModel.Search;
 using TestPodologyRepository.Data;
 using TestPodologyRepository.Entities;

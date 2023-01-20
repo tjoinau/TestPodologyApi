@@ -1,31 +1,44 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using LinqKit;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualBasic;
 using TestPodologyApi.Interfaces;
 using TestPodologyModel.DTOs;
+using TestPodologyModel.Search;
 using TestPodologyRepository.Data;
+using TestPodologyRepository.Entities;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace TestPodologyApi.Services
 {
     public class ConsultationService : IConsultationService
     {
+        private readonly ITestPodologyDBContext
         private readonly TimeOnly StartDayParam = new TimeOnly(8, 0);
         private readonly TimeOnly EndDayParam = new TimeOnly(18, 0);
         private readonly TimeSpan slotDuration = TimeSpan.FromMinutes(60);
 
-        public async Task<List<AvailableDatesDto>> GetFirstsAvailableDates()
+        public async Task<List<AvailableDatesDto>> GetFirstsAvailableDates(FirstsAvailableDatesSearch oSearch)
         {
+            var initialDate = DateTime.Today.AddDays(1);
+
             try
             {
+                var locationPRedicate = PredicateBuilder.New<Consultation>(x => x.StartConsultation >= initialDate && x.EndConsultation < initialDate.AddMonths(1));
+
+                if (oSearch.LocationId.HasValue)
+                {
+                    locationPRedicate = locationPRedicate.And(x => x.HealthCareProviderId == oSearch.LocationId.Value);
+                }
+
                 var availableDates = new List<AvailableDatesDto>();
 
                 using (var db = new TestPodologyDBContext())
                 {
                     //var initialDate = DateTime.Today.AddHours(StartDayParam.Hour).AddMinutes(StartDayParam.Minute);
-                    var initialDate = DateTime.Today.AddDays(1);
+                    
 
                     var consultationsDb = await db.Consultations
-                        .Where(x => x.StartConsultation >= initialDate && x.EndConsultation < initialDate.AddMonths(1))
+                        .Where(locationPRedicate)
                         .OrderBy(x => x.StartConsultation)
                         .ToListAsync()
                         .ConfigureAwait(false);
@@ -62,6 +75,31 @@ namespace TestPodologyApi.Services
             catch (Exception ex)
             {
                 throw ex;
+            }
+        }
+
+        public async Task<NewConsultationDto> AddNewConsultation(Consultation newConsultation)
+        {
+            try
+            {
+                using (var db = new TestPodologyDBContext())
+                {
+                    var result = await db.Consultations.AddAsync(newConsultation).ConfigureAwait(false);
+
+                    db.SaveChanges();
+
+                    return result;
+                }
+                    var dataDB = _context.RefTruckTypes.Add(data).Entity;
+
+                _context.SaveChanges();
+
+                return dataDB;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error during Insert RefTruckType", ex);
+                throw;
             }
         }
     }

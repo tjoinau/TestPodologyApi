@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TestPodologyApi.Interfaces;
 using TestPodologyModel.DTOs;
+using TestPodologyModel.Search;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -34,8 +35,9 @@ namespace TestPodologyApi.Controllers
 
         // POST api/<ConsultationController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post([FromBody] NewConsultationDto newConsultation)
         {
+
         }
 
         // PUT api/<ConsultationController>/5
@@ -51,9 +53,9 @@ namespace TestPodologyApi.Controllers
         }
 
         [HttpGet("GetFirstsAvailableDates")]
-        public async Task<List<AvailableDatesDto>> GetFirstsAvailableDates()
+        public async Task<List<AvailableDatesDto>> GetFirstsAvailableDates([FromQuery]FirstsAvailableDatesSearch oSearch)
         {
-            var xxx = await _consultationService.GetFirstsAvailableDates();
+            var xxx = await _consultationService.GetFirstsAvailableDates(oSearch);
 
             return xxx;
         }
