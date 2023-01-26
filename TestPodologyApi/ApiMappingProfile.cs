@@ -9,6 +9,11 @@ namespace TestPodologyApi
         public ApiMappingProfile()
         {
             CreateMap<Location, LocationDto>().ReverseMap();
+
+            CreateMap<Consultation, NewConsultationDto>().ReverseMap();
+            CreateMap<Consultation, ConsultationDto>().ReverseMap();
+            CreateMap<Patient, PatientDto>().ReverseMap();
+            CreateMap<HealthCareProvider, HealthCareProviderDto>().ReverseMap();
         }
     }
 }

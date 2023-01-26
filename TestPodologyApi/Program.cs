@@ -33,6 +33,8 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddScoped<IConsultationService, ConsultationService>();
 builder.Services.AddScoped<ILocationService, LocationService>();
+builder.Services.AddScoped<IPatientService, PatientService>();
+builder.Services.AddScoped<IHealthCareProviderService, HealthCareProviderService>();
 
 var app = builder.Build();
 

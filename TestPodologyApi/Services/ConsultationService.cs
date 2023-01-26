@@ -12,10 +12,58 @@ namespace TestPodologyApi.Services
 {
     public class ConsultationService : IConsultationService
     {
-        private readonly ITestPodologyDBContext
         private readonly TimeOnly StartDayParam = new TimeOnly(8, 0);
         private readonly TimeOnly EndDayParam = new TimeOnly(18, 0);
         private readonly TimeSpan slotDuration = TimeSpan.FromMinutes(60);
+
+        public async Task<List<Consultation>> Get(ConsultationSearch oSearch)
+        {
+            try
+            {
+                using (var db = new TestPodologyDBContext())
+                {
+                    var locationPRedicate = PredicateBuilder.New<Consultation>(true);
+
+                    if (oSearch.StartDateBefore.HasValue)
+                    {
+                        locationPRedicate = locationPRedicate.And(x => x.StartConsultation <= oSearch.StartDateBefore.Value);
+                    }
+
+                    if (oSearch.StartDateAfter.HasValue)
+                    {
+                        locationPRedicate = locationPRedicate.And(x => x.StartConsultation >= oSearch.StartDateAfter.Value);
+                    }
+
+                    if (oSearch.EndDateBefore.HasValue)
+                    {
+                        locationPRedicate = locationPRedicate.And(x => x.EndConsultation <= oSearch.EndDateBefore.Value);
+                    }
+
+                    if (oSearch.EndDateAfter.HasValue)
+                    {
+                        locationPRedicate = locationPRedicate.And(x => x.EndConsultation >= oSearch.EndDateAfter.Value);
+                    }
+
+                    if (oSearch.Id.HasValue)
+                    {
+                        locationPRedicate = locationPRedicate.And(x => x.Id == oSearch.Id.Value);
+                    }
+
+                    if (oSearch.Location.HasValue)
+                    {
+                        locationPRedicate = locationPRedicate.And(x => x.LocationId == oSearch.Location.Value);
+                    }
+
+                    var result = await db.Consultations.Where(locationPRedicate).ToListAsync().ConfigureAwait(false);
+
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
         public async Task<List<AvailableDatesDto>> GetFirstsAvailableDates(FirstsAvailableDatesSearch oSearch)
         {
@@ -27,7 +75,7 @@ namespace TestPodologyApi.Services
 
                 if (oSearch.LocationId.HasValue)
                 {
-                    locationPRedicate = locationPRedicate.And(x => x.HealthCareProviderId == oSearch.LocationId.Value);
+                    locationPRedicate = locationPRedicate.And(x => x.LocationId == oSearch.LocationId.Value);
                 }
 
                 var availableDates = new List<AvailableDatesDto>();
@@ -78,28 +126,25 @@ namespace TestPodologyApi.Services
             }
         }
 
-        public async Task<NewConsultationDto> AddNewConsultation(Consultation newConsultation)
+        public async Task<Consultation> AddNewConsultationAsync(Consultation newConsultation)
         {
             try
             {
+                newConsultation.StatusId = 1;
+                newConsultation.EndConsultation = newConsultation.StartConsultation.Add(slotDuration);
+
                 using (var db = new TestPodologyDBContext())
                 {
-                    var result = await db.Consultations.AddAsync(newConsultation).ConfigureAwait(false);
+                    var result = await db.AddAsync(newConsultation).ConfigureAwait(false);
 
                     db.SaveChanges();
 
-                    return result;
+                    return result.Entity;
                 }
-                    var dataDB = _context.RefTruckTypes.Add(data).Entity;
-
-                _context.SaveChanges();
-
-                return dataDB;
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error during Insert RefTruckType", ex);
-                throw;
+                throw ex;
             }
         }
     }

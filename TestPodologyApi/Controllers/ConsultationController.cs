@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using TestPodologyApi.Interfaces;
 using TestPodologyModel.DTOs;
 using TestPodologyModel.Search;
+using TestPodologyRepository.Entities;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -12,18 +14,22 @@ namespace TestPodologyApi.Controllers
     public class ConsultationController : ControllerBase
     {
         private readonly IConsultationService _consultationService;
+        private readonly IMapper _mapper;
 
-        public ConsultationController(IConsultationService consultationService)
+        public ConsultationController(IConsultationService consultationService, IMapper mapper)
         {
             _consultationService = consultationService;
+            _mapper = mapper;
         }
 
 
         // GET: api/<ConsultationController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<List<ConsultationDto>> Get([FromQuery]ConsultationSearch oSearch)
         {
-            return new string[] { "value1", "value2" };
+            var result = _mapper.Map<List<ConsultationDto>>( await _consultationService.Get(oSearch).ConfigureAwait(false));
+
+            return result;
         }
 
         // GET api/<ConsultationController>/5
@@ -35,9 +41,17 @@ namespace TestPodologyApi.Controllers
 
         // POST api/<ConsultationController>
         [HttpPost]
-        public void Post([FromBody] NewConsultationDto newConsultation)
+        public async Task<ConsultationDto> Post([FromBody] NewConsultationDto newConsultation)
         {
+            if(newConsultation == null)
+            {
+                return null;
+            }
+            var result = await _consultationService.AddNewConsultationAsync(_mapper.Map<Consultation>(newConsultation));
 
+            var consultation = _mapper.Map<ConsultationDto>(result);
+
+            return consultation;
         }
 
         // PUT api/<ConsultationController>/5
