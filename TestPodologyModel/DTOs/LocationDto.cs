@@ -8,6 +8,8 @@
 
         public string Address { get; set; } = null!;
 
-        public int HealthCareProviderId { get; set; }
+        public string HealthCareProviderId { get; set; }
+
+        public string Color { get; set; } = null!;
     }
 }

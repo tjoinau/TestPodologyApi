@@ -1,5 +1,6 @@
 ﻿using LinqKit;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.VisualBasic;
 using TestPodologyApi.Interfaces;
 using TestPodologyModel.DTOs;
@@ -23,6 +24,16 @@ namespace TestPodologyApi.Services
                 using (var db = new TestPodologyDBContext())
                 {
                     var locationPRedicate = PredicateBuilder.New<Consultation>(true);
+
+                    if (!string.IsNullOrEmpty(oSearch.HealthCheckProviderId))
+                    {
+                        locationPRedicate = locationPRedicate.And(x => x.HealthCareProviderId == oSearch.HealthCheckProviderId);
+                    }
+
+                    if (!string.IsNullOrEmpty(oSearch.PatientId))
+                    {
+                        locationPRedicate = locationPRedicate.And(x => x.PatientId == oSearch.PatientId);
+                    }
 
                     if (oSearch.StartDateBefore.HasValue)
                     {
@@ -54,7 +65,11 @@ namespace TestPodologyApi.Services
                         locationPRedicate = locationPRedicate.And(x => x.LocationId == oSearch.Location.Value);
                     }
 
-                    var result = await db.Consultations.Where(locationPRedicate).ToListAsync().ConfigureAwait(false);
+                    var result = await db.Consultations
+                        .Include(x => x.Patient)
+                        .Where(locationPRedicate)
+                        .ToListAsync()
+                        .ConfigureAwait(false);
 
                     return result;
                 }

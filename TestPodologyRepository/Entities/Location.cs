@@ -11,9 +11,9 @@ public partial class Location
 
     public string Address { get; set; } = null!;
 
-    public int HealthCareProviderId { get; set; }
+    public string Color { get; set; } = null!;
 
     public virtual ICollection<Consultation> Consultations { get; } = new List<Consultation>();
 
-    public virtual HealthCareProvider HealthCareProvider { get; set; } = null!;
+    public virtual ICollection<LocationHealthCareProvider> LocationHealthCareProviders { get; } = new List<LocationHealthCareProvider>();
 }

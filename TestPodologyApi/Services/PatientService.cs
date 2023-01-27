@@ -15,9 +15,9 @@ namespace TestPodologyApi.Services
             {
                 var pr = PredicateBuilder.New<Patient>(true);
 
-                if (oSearch.Id.HasValue)
+                if (!string.IsNullOrEmpty(oSearch.Id))
                 {
-                    pr = pr.And(x => x.Id == oSearch.Id.Value);
+                    pr = pr.And(x => x.Id == oSearch.Id);
                 }
 
                 using (var db = new TestPodologyDBContext())

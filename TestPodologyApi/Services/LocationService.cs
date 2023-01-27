@@ -13,18 +13,21 @@ namespace TestPodologyApi.Services
         {
             try
             {
-                var pr = PredicateBuilder.New<Location>(true);
+                var pr = PredicateBuilder.New<LocationHealthCareProvider>(true);
 
-                if (locationSearch.DoctorId.HasValue)
+                if (!string.IsNullOrEmpty(locationSearch.DoctorId))
                 {
-                    pr = pr.And(x => x.HealthCareProviderId == locationSearch.DoctorId.Value);
+                    pr = pr.And(x => x.HealthCareProviderId == locationSearch.DoctorId);
                 }
 
                 using (var db = new TestPodologyDBContext())
                 {
-                    var locationsDb = await db.Locations
+                    var locationsDb = await db.LocationHealthCareProviders
+                        .Include(x => x.Location)
                         .Where(pr)
-                        .OrderBy(x => x.Name)
+                        .OrderBy(x => x.Location.Name)
+                        .Select(x => x.Location)
+                        .Distinct()
                         .ToListAsync()
                         .ConfigureAwait(false);
 

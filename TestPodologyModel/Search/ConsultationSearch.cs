@@ -2,6 +2,8 @@
 {
     public class ConsultationSearch
     {
+        public string? HealthCheckProviderId { get; set; }
+        public string? PatientId { get; set; }
         public DateTime? StartDateBefore { get; set; }
         public DateTime? StartDateAfter { get; set; }
         public DateTime? EndDateBefore { get; set; }

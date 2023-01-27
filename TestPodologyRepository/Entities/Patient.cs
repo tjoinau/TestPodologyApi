@@ -5,7 +5,7 @@ namespace TestPodologyRepository.Entities;
 
 public partial class Patient
 {
-    public int Id { get; set; }
+    public string Id { get; set; } = null!;
 
     public string FirstName { get; set; } = null!;
 

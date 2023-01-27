@@ -9,9 +9,9 @@ public partial class Consultation
 
     public int StatusId { get; set; }
 
-    public int PatientId { get; set; }
+    public string PatientId { get; set; } = null!;
 
-    public int HealthCareProviderId { get; set; }
+    public string HealthCareProviderId { get; set; } = null!;
 
     public int LocationId { get; set; }
 

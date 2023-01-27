@@ -2,9 +2,9 @@
 {
     public class NewConsultationDto
     {
-        public int PatientId { get; set; }
+        public string PatientId { get; set; }
 
-        public int HealthCareProviderId { get; set; }
+        public string HealthCareProviderId { get; set; }
 
         public int LocationId { get; set; }
 

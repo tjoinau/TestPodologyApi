@@ -5,7 +5,7 @@ namespace TestPodologyRepository.Entities;
 
 public partial class HealthCareProvider
 {
-    public int Id { get; set; }
+    public string Id { get; set; } = null!;
 
     public string FirstName { get; set; } = null!;
 
@@ -13,5 +13,5 @@ public partial class HealthCareProvider
 
     public virtual ICollection<Consultation> Consultations { get; } = new List<Consultation>();
 
-    public virtual ICollection<Location> Locations { get; } = new List<Location>();
+    public virtual ICollection<LocationHealthCareProvider> LocationHealthCareProviders { get; } = new List<LocationHealthCareProvider>();
 }

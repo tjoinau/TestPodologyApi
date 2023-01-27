@@ -2,6 +2,6 @@
 {
     public class LocationSearch
     {
-        public int? DoctorId { get; set; }
+        public string? DoctorId { get; set; }
     }
 }
