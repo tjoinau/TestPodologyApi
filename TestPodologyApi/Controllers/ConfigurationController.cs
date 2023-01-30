@@ -41,19 +41,6 @@ namespace TestPodologyApi.Controllers
             }
 
             return new HCPConfigurationDto();
-
-            
-
-            //return new HCPConfigurationDto()
-            //{
-            //    Config= new HCPConfigFormModel()
-            //    {
-            //        ConsultationLength= 200,
-            //        EndDay = "18:22",
-            //        StartDay = "08:33"
-            //    },
-            //    HCPId = "2"
-            //};
         }
 
         // GET api/<ConfigurationController>/5
@@ -71,7 +58,8 @@ namespace TestPodologyApi.Controllers
             var hCPConfiguration = new Hcpconfiguration()
             {
                 HcpId = value.HCPId,
-                Config = config
+                Config = config,
+                Id = value.Id
             };
 
             var res = await _configurationService.InsertUpdateConfig(hCPConfiguration).ConfigureAwait(false);
