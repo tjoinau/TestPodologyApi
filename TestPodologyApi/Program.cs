@@ -35,6 +35,7 @@ builder.Services.AddScoped<IConsultationService, ConsultationService>();
 builder.Services.AddScoped<ILocationService, LocationService>();
 builder.Services.AddScoped<IPatientService, PatientService>();
 builder.Services.AddScoped<IHealthCareProviderService, HealthCareProviderService>();
+builder.Services.AddScoped<IConfigurationService, ConfigurationService>();
 
 var app = builder.Build();
 

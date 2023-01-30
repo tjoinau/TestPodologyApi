@@ -18,4 +18,6 @@ public partial class Patient
     public DateTime? BirthDay { get; set; }
 
     public virtual ICollection<Consultation> Consultations { get; } = new List<Consultation>();
+
+    public virtual ICollection<PatientConfiguration> PatientConfigurations { get; } = new List<PatientConfiguration>();
 }

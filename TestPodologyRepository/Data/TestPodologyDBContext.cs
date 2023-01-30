@@ -18,6 +18,8 @@ public partial class TestPodologyDBContext : DbContext
 
     public virtual DbSet<Consultation> Consultations { get; set; }
 
+    public virtual DbSet<Hcpconfiguration> Hcpconfigurations { get; set; }
+
     public virtual DbSet<HealthCareProvider> HealthCareProviders { get; set; }
 
     public virtual DbSet<Location> Locations { get; set; }
@@ -25,6 +27,8 @@ public partial class TestPodologyDBContext : DbContext
     public virtual DbSet<LocationHealthCareProvider> LocationHealthCareProviders { get; set; }
 
     public virtual DbSet<Patient> Patients { get; set; }
+
+    public virtual DbSet<PatientConfiguration> PatientConfigurations { get; set; }
 
     public virtual DbSet<RefStatus> RefStatuses { get; set; }
 
@@ -73,6 +77,22 @@ public partial class TestPodologyDBContext : DbContext
                 .HasForeignKey(d => d.StatusId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Consultation_Ref_Status");
+        });
+
+        modelBuilder.Entity<Hcpconfiguration>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK_Configuration");
+
+            entity.ToTable("HCPConfiguration");
+
+            entity.Property(e => e.HcpId)
+                .HasMaxLength(150)
+                .HasColumnName("HCP_Id");
+
+            entity.HasOne(d => d.Hcp).WithMany(p => p.Hcpconfigurations)
+                .HasForeignKey(d => d.HcpId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Configuration_HealthCareProvider");
         });
 
         modelBuilder.Entity<HealthCareProvider>(entity =>
@@ -128,6 +148,20 @@ public partial class TestPodologyDBContext : DbContext
             entity.Property(e => e.FirstName).HasMaxLength(50);
             entity.Property(e => e.LastName).HasMaxLength(50);
             entity.Property(e => e.Phone).HasMaxLength(50);
+        });
+
+        modelBuilder.Entity<PatientConfiguration>(entity =>
+        {
+            entity.ToTable("PatientConfiguration");
+
+            entity.Property(e => e.PatientId)
+                .HasMaxLength(150)
+                .HasColumnName("Patient_Id");
+
+            entity.HasOne(d => d.Patient).WithMany(p => p.PatientConfigurations)
+                .HasForeignKey(d => d.PatientId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_PatientConfiguration_Patient");
         });
 
         modelBuilder.Entity<RefStatus>(entity =>
